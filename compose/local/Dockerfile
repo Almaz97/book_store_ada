@@ -35,6 +35,7 @@ COPY ./compose/local/start.sh .
 COPY ./compose/local/beat.sh .
 
 RUN chmod +x entrypoint.sh start.sh beat.sh
+RUN chmod -R 755 $APP_HOME
 
 RUN addgroup -S django && adduser -S django -G django --uid 1000
 RUN chown django:django -R django:django start.sh entrypoint.sh beat.sh
