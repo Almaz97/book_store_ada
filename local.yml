@@ -49,7 +49,7 @@ services:
 
   beat:
     <<: *celery-service
-    command: celery -A core beat --loglevel=info
+    command: /beat.sh
 
 volumes:
   postgres_data: {}

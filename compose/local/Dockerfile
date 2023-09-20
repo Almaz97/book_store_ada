@@ -19,9 +19,10 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # copy entrypoint.sh.sh
 COPY ./compose/local/entrypoint.sh .
-
 COPY ./compose/local/start.sh .
-RUN chmod +x entrypoint.sh start.sh
+COPY ./compose/local/beat.sh .
+
+RUN chmod +x entrypoint.sh start.sh beat.sh
 
 RUN addgroup -S django && adduser -S django -G django --uid 1000
 RUN chown django:django -R start.sh
