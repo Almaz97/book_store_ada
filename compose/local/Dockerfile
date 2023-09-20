@@ -37,9 +37,9 @@ COPY ./compose/local/beat.sh .
 RUN chmod +x entrypoint.sh start.sh beat.sh
 
 RUN addgroup -S django && adduser -S django -G django --uid 1000
-RUN chown django:django -R start.sh entrypoint.sh beat.sh
-RUN chown django:django -R $APP_HOME/static
-RUN chown django:django -R $APP_HOME/media
+RUN chown django:django -R django:django start.sh entrypoint.sh beat.sh
+RUN chown django:django -R django:django $APP_HOME/static
+RUN chown django:django -R django:django $APP_HOME/media
 
 USER django
 
