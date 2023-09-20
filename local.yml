@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+
+  web:
+    build:
+      context: .
+      dockerfile: ./compose/local/Dockerfile
+    image: web-local-books
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .envs/.local/.django
+    command: /start.sh
+    container_name: books_storage
+
+  db:
+    image: postgres:13.0
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .envs/.local/.db
+    ports:
+      - "5433:5432"
+
+  redis:
+    restart: unless-stopped
+    image: redis:7.2.1-alpine
+    expose:
+      - 6379
+
+  celery: &celery-service
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./compose/local/Dockerfile
+    volumes:
+      - .:/app
+    env_file:
+      - .envs/.local/.django
+    depends_on:
+      - web
+      - redis
+    command: celery -A core worker --loglevel=info
+
+  beat:
+    <<: *celery-service
+    command: celery -A core beat --loglevel=info
+
+volumes:
+  postgres_data: {}
