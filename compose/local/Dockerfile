@@ -46,7 +46,7 @@ RUN chmod +x entrypoint.sh start.sh beat.sh
 
 USER django
 
-WORKDIR /app
+WORKDIR $APP_HOME
 
 ENTRYPOINT ["/entrypoint.sh"]
 
