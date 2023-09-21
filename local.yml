@@ -10,7 +10,7 @@ services:
     depends_on:
       - db
     volumes:
-      - .:/app
+      - .:/home/django/app
     ports:
       - "8000:8000"
     env_file:
@@ -39,7 +39,7 @@ services:
       context: .
       dockerfile: ./compose/local/Dockerfile
     volumes:
-      - .:/app
+      - .:/home/django/app
     env_file:
       - .envs/.local/.django
     depends_on:
