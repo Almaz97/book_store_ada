@@ -49,4 +49,3 @@ USER django
 WORKDIR $APP_HOME
 
 ENTRYPOINT ["/entrypoint.sh"]
-
