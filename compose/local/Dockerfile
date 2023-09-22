@@ -14,7 +14,7 @@ RUN apk update \
   && apk add postgresql-client
 
 
-RUN addgroup -S django && adduser -S django -G django --uid 1000
+# RUN addgroup -S django && adduser -S django -G django --uid 1000
 
 # create directory for the django user
 RUN mkdir -p /home/django
@@ -38,13 +38,11 @@ COPY ./compose/local/start.sh .
 COPY ./compose/local/beat.sh .
 
 
-RUN chown -R django:django start.sh entrypoint.sh beat.sh
-RUN chown -R django:django $APP_HOME
+#RUN chown -R django:django start.sh entrypoint.sh beat.sh
+#RUN chown -R django:django $APP_HOME
 
 RUN chmod -R 755 $APP_HOME
 RUN chmod +x entrypoint.sh start.sh beat.sh
-
-USER django
 
 WORKDIR $APP_HOME
 
